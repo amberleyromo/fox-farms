@@ -1,9 +1,24 @@
 import React from "react"
 import logo from "../assets/logo.png"
-import { Link } from "gatsby"
+import { Link, graphql } from "gatsby"
 
 export default ({ data }) => {
   console.log(data)
+
+  // need to map over the thumbnails array, not instaNode
+
+  // prev:
+  // data.instaNode.map(({ thumbnails }, index) => (
+  //   <tr key={index}>
+  //     <td>{thumbnails.src}</td>
+  //   </tr>
+  // ))
+
+  // now:
+  data.instaNode.thumbnails.map(({ src }, index) => {
+    console.log("src", src)
+  })
+
   return (
     <div>
       <Link to="/contact">Contact</Link>
@@ -66,6 +81,15 @@ export default ({ data }) => {
           </tr>
         ))}
       </div> */}
+      <table>
+        <tbody>
+          {data.instaNode.thumbnails.map(({ src }, index) => (
+            <tr key={index}>
+              <td>{src}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   )
 }
